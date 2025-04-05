@@ -25,10 +25,10 @@ jobs:
 
     - name: Generate documentation with pdoc
       run: |
-        pdoc --output-dir docs --force --html calculon
+        pdoc --output-dir docs calculon
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/calculon
+        publish_dir: ./docs
