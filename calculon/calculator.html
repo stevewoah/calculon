@@ -55,51 +55,94 @@
                     <h1 class="modulename">
 <a href="./../calculon.html">calculon</a><wbr>.calculator    </h1>
 
-                
+                        <div class="docstring"><p>Business logic for calculon</p>
+</div>
+
                         <input id="mod-calculator-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 
                         <label class="view-source-button" for="mod-calculator-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;Business logic for calculon&quot;&quot;&quot;</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="k">def</span><span class="w"> </span><span class="nf">validate_args</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="sd">    Validates the command-line arguments and joins them into an expression string. Removes the first entry of the input list.</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">    Args:</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">        args (list[str]): List of arguments passed from CLI.</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">    Returns:</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">        str: A string representing the mathematical expression to evaluate.</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    Raises:</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">        SystemExit: If no arguments are provided.</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage: calculon </span><span class="se">\&quot;</span><span class="s2">3 + 4 * 2</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">expression</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="k">return</span> <span class="n">expression</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="k">def</span><span class="w"> </span><span class="nf">calculate_expression</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>        <span class="c1"># Regular expression to validate input</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^[0-9+\-*/. ]+$&#39;</span><span class="p">,</span> <span class="n">expression</span><span class="p">):</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid characters in input.&quot;</span><span class="p">)</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>            <span class="k">return</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>        
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>        <span class="c1"># Respect operator precedence</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>        <span class="n">result</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Division by zero is not allowed.&quot;</span><span class="p">)</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="k">def</span><span class="w"> </span><span class="nf">validate_args</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    Validates the command-line arguments and joins them into an expression string. Removes the</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">    first entry of the input list.</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">    Args:</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">        args (list[str]): List of arguments passed from CLI.</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    Returns:</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">        str: A string representing the mathematical expression to evaluate.</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    Raises:</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">        SystemExit: If no arguments are provided.</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Usage: calculon &quot;3 + 4 * 2&quot;&#39;</span><span class="p">)</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">expression</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="k">return</span> <span class="n">expression</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="k">def</span><span class="w"> </span><span class="nf">calculate_expression</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">    Evaluates a mathematical expression string and prints the result.</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="sd">    The function supports the four basic arithmetic operations: addition,</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">    subtraction, multiplication, and division. Operator precedence is respected</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="sd">    (e.g., multiplication is evaluated before addition). Only digits, spaces,</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="sd">    decimal points, and the operators &#39;+&#39;, &#39;-&#39;, &#39;*&#39;, and &#39;/&#39; are allowed.</span>
 </span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="k">def</span><span class="w"> </span><span class="nf">calc</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="n">calculate_expression</span><span class="p">(</span><span class="n">validate_args</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="sd">    Args:</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="sd">        expression (str): A string containing a mathematical expression (e.g., &quot;3 + 4 * 2&quot;).</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="sd">    Returns:</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="sd">        None: The result is printed directly. Error messages are also printed</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="sd">        if the input is invalid or a division by zero occurs.</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>        <span class="c1"># Regular expression to validate input</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^[0-9+\-*/. ]+$&quot;</span><span class="p">,</span> <span class="n">expression</span><span class="p">):</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid characters in input.&quot;</span><span class="p">)</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>            <span class="k">return</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>        <span class="c1"># Just for the sake of testing it</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>        <span class="c1"># pylint: disable=eval-used</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>        <span class="n">result</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>        <span class="c1"># pylint: enable=eval-used</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Division by zero is not allowed.&quot;</span><span class="p">)</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Invalid input value.&quot;</span><span class="p">)</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>    <span class="k">except</span> <span class="ne">SyntaxError</span><span class="p">:</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Invalid syntax in the expression.&quot;</span><span class="p">)</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a><span class="k">def</span><span class="w"> </span><span class="nf">calc</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a><span class="sd">    Validates command-line arguments and calculates the result of the provided expression.</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a><span class="sd">    This function takes the command-line arguments (usually passed through `sys.argv`),</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a><span class="sd">    validates the expression, and then calls `calculate_expression` to evaluate the expression.</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>
+</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a><span class="sd">    Args:</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a><span class="sd">        args (list): A list of command-line arguments, typically provided by `sys.argv[1:]`.</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a><span class="sd">                      The list should contain a mathematical expression as a string to be evaluated.</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a>
+</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a><span class="sd">    Returns:</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a><span class="sd">        None: The result of the expression is printed directly. If there is an error</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a><span class="sd">              (e.g., invalid input or syntax), an error message is printed instead.</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a>    <span class="n">calculate_expression</span><span class="p">(</span><span class="n">validate_args</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
 </span></pre></div>
 
 
@@ -115,30 +158,32 @@
 
     </div>
     <a class="headerlink" href="#validate_args"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="validate_args-4"><a href="#validate_args-4"><span class="linenos"> 4</span></a><span class="k">def</span><span class="w"> </span><span class="nf">validate_args</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="validate_args-5"><a href="#validate_args-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="validate_args-6"><a href="#validate_args-6"><span class="linenos"> 6</span></a><span class="sd">    Validates the command-line arguments and joins them into an expression string. Removes the first entry of the input list.</span>
-</span><span id="validate_args-7"><a href="#validate_args-7"><span class="linenos"> 7</span></a>
-</span><span id="validate_args-8"><a href="#validate_args-8"><span class="linenos"> 8</span></a><span class="sd">    Args:</span>
-</span><span id="validate_args-9"><a href="#validate_args-9"><span class="linenos"> 9</span></a><span class="sd">        args (list[str]): List of arguments passed from CLI.</span>
-</span><span id="validate_args-10"><a href="#validate_args-10"><span class="linenos">10</span></a>
-</span><span id="validate_args-11"><a href="#validate_args-11"><span class="linenos">11</span></a><span class="sd">    Returns:</span>
-</span><span id="validate_args-12"><a href="#validate_args-12"><span class="linenos">12</span></a><span class="sd">        str: A string representing the mathematical expression to evaluate.</span>
-</span><span id="validate_args-13"><a href="#validate_args-13"><span class="linenos">13</span></a>
-</span><span id="validate_args-14"><a href="#validate_args-14"><span class="linenos">14</span></a><span class="sd">    Raises:</span>
-</span><span id="validate_args-15"><a href="#validate_args-15"><span class="linenos">15</span></a><span class="sd">        SystemExit: If no arguments are provided.</span>
-</span><span id="validate_args-16"><a href="#validate_args-16"><span class="linenos">16</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="validate_args-17"><a href="#validate_args-17"><span class="linenos">17</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-</span><span id="validate_args-18"><a href="#validate_args-18"><span class="linenos">18</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage: calculon </span><span class="se">\&quot;</span><span class="s2">3 + 4 * 2</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="validate_args-19"><a href="#validate_args-19"><span class="linenos">19</span></a>        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="validate_args-20"><a href="#validate_args-20"><span class="linenos">20</span></a>
-</span><span id="validate_args-21"><a href="#validate_args-21"><span class="linenos">21</span></a>    <span class="n">expression</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-</span><span id="validate_args-22"><a href="#validate_args-22"><span class="linenos">22</span></a>
-</span><span id="validate_args-23"><a href="#validate_args-23"><span class="linenos">23</span></a>    <span class="k">return</span> <span class="n">expression</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="validate_args-8"><a href="#validate_args-8"><span class="linenos"> 8</span></a><span class="k">def</span><span class="w"> </span><span class="nf">validate_args</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="validate_args-9"><a href="#validate_args-9"><span class="linenos"> 9</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="validate_args-10"><a href="#validate_args-10"><span class="linenos">10</span></a><span class="sd">    Validates the command-line arguments and joins them into an expression string. Removes the</span>
+</span><span id="validate_args-11"><a href="#validate_args-11"><span class="linenos">11</span></a><span class="sd">    first entry of the input list.</span>
+</span><span id="validate_args-12"><a href="#validate_args-12"><span class="linenos">12</span></a>
+</span><span id="validate_args-13"><a href="#validate_args-13"><span class="linenos">13</span></a><span class="sd">    Args:</span>
+</span><span id="validate_args-14"><a href="#validate_args-14"><span class="linenos">14</span></a><span class="sd">        args (list[str]): List of arguments passed from CLI.</span>
+</span><span id="validate_args-15"><a href="#validate_args-15"><span class="linenos">15</span></a>
+</span><span id="validate_args-16"><a href="#validate_args-16"><span class="linenos">16</span></a><span class="sd">    Returns:</span>
+</span><span id="validate_args-17"><a href="#validate_args-17"><span class="linenos">17</span></a><span class="sd">        str: A string representing the mathematical expression to evaluate.</span>
+</span><span id="validate_args-18"><a href="#validate_args-18"><span class="linenos">18</span></a>
+</span><span id="validate_args-19"><a href="#validate_args-19"><span class="linenos">19</span></a><span class="sd">    Raises:</span>
+</span><span id="validate_args-20"><a href="#validate_args-20"><span class="linenos">20</span></a><span class="sd">        SystemExit: If no arguments are provided.</span>
+</span><span id="validate_args-21"><a href="#validate_args-21"><span class="linenos">21</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="validate_args-22"><a href="#validate_args-22"><span class="linenos">22</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+</span><span id="validate_args-23"><a href="#validate_args-23"><span class="linenos">23</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Usage: calculon &quot;3 + 4 * 2&quot;&#39;</span><span class="p">)</span>
+</span><span id="validate_args-24"><a href="#validate_args-24"><span class="linenos">24</span></a>        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="validate_args-25"><a href="#validate_args-25"><span class="linenos">25</span></a>
+</span><span id="validate_args-26"><a href="#validate_args-26"><span class="linenos">26</span></a>    <span class="n">expression</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+</span><span id="validate_args-27"><a href="#validate_args-27"><span class="linenos">27</span></a>
+</span><span id="validate_args-28"><a href="#validate_args-28"><span class="linenos">28</span></a>    <span class="k">return</span> <span class="n">expression</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Validates the command-line arguments and joins them into an expression string. Removes the first entry of the input list.</p>
+            <div class="docstring"><p>Validates the command-line arguments and joins them into an expression string. Removes the
+first entry of the input list.</p>
 
 <h6 id="arguments">Arguments:</h6>
 
@@ -172,24 +217,64 @@
 
     </div>
     <a class="headerlink" href="#calculate_expression"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="calculate_expression-25"><a href="#calculate_expression-25"><span class="linenos">25</span></a><span class="k">def</span><span class="w"> </span><span class="nf">calculate_expression</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
-</span><span id="calculate_expression-26"><a href="#calculate_expression-26"><span class="linenos">26</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="calculate_expression-27"><a href="#calculate_expression-27"><span class="linenos">27</span></a>        <span class="c1"># Regular expression to validate input</span>
-</span><span id="calculate_expression-28"><a href="#calculate_expression-28"><span class="linenos">28</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^[0-9+\-*/. ]+$&#39;</span><span class="p">,</span> <span class="n">expression</span><span class="p">):</span>
-</span><span id="calculate_expression-29"><a href="#calculate_expression-29"><span class="linenos">29</span></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid characters in input.&quot;</span><span class="p">)</span>
-</span><span id="calculate_expression-30"><a href="#calculate_expression-30"><span class="linenos">30</span></a>            <span class="k">return</span>
-</span><span id="calculate_expression-31"><a href="#calculate_expression-31"><span class="linenos">31</span></a>        
-</span><span id="calculate_expression-32"><a href="#calculate_expression-32"><span class="linenos">32</span></a>        <span class="c1"># Respect operator precedence</span>
-</span><span id="calculate_expression-33"><a href="#calculate_expression-33"><span class="linenos">33</span></a>        <span class="n">result</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
-</span><span id="calculate_expression-34"><a href="#calculate_expression-34"><span class="linenos">34</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="calculate_expression-35"><a href="#calculate_expression-35"><span class="linenos">35</span></a>    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
-</span><span id="calculate_expression-36"><a href="#calculate_expression-36"><span class="linenos">36</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Division by zero is not allowed.&quot;</span><span class="p">)</span>
-</span><span id="calculate_expression-37"><a href="#calculate_expression-37"><span class="linenos">37</span></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span><span id="calculate_expression-38"><a href="#calculate_expression-38"><span class="linenos">38</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="calculate_expression-31"><a href="#calculate_expression-31"><span class="linenos">31</span></a><span class="k">def</span><span class="w"> </span><span class="nf">calculate_expression</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+</span><span id="calculate_expression-32"><a href="#calculate_expression-32"><span class="linenos">32</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="calculate_expression-33"><a href="#calculate_expression-33"><span class="linenos">33</span></a><span class="sd">    Evaluates a mathematical expression string and prints the result.</span>
+</span><span id="calculate_expression-34"><a href="#calculate_expression-34"><span class="linenos">34</span></a>
+</span><span id="calculate_expression-35"><a href="#calculate_expression-35"><span class="linenos">35</span></a><span class="sd">    The function supports the four basic arithmetic operations: addition,</span>
+</span><span id="calculate_expression-36"><a href="#calculate_expression-36"><span class="linenos">36</span></a><span class="sd">    subtraction, multiplication, and division. Operator precedence is respected</span>
+</span><span id="calculate_expression-37"><a href="#calculate_expression-37"><span class="linenos">37</span></a><span class="sd">    (e.g., multiplication is evaluated before addition). Only digits, spaces,</span>
+</span><span id="calculate_expression-38"><a href="#calculate_expression-38"><span class="linenos">38</span></a><span class="sd">    decimal points, and the operators &#39;+&#39;, &#39;-&#39;, &#39;*&#39;, and &#39;/&#39; are allowed.</span>
+</span><span id="calculate_expression-39"><a href="#calculate_expression-39"><span class="linenos">39</span></a>
+</span><span id="calculate_expression-40"><a href="#calculate_expression-40"><span class="linenos">40</span></a><span class="sd">    Args:</span>
+</span><span id="calculate_expression-41"><a href="#calculate_expression-41"><span class="linenos">41</span></a><span class="sd">        expression (str): A string containing a mathematical expression (e.g., &quot;3 + 4 * 2&quot;).</span>
+</span><span id="calculate_expression-42"><a href="#calculate_expression-42"><span class="linenos">42</span></a>
+</span><span id="calculate_expression-43"><a href="#calculate_expression-43"><span class="linenos">43</span></a><span class="sd">    Returns:</span>
+</span><span id="calculate_expression-44"><a href="#calculate_expression-44"><span class="linenos">44</span></a><span class="sd">        None: The result is printed directly. Error messages are also printed</span>
+</span><span id="calculate_expression-45"><a href="#calculate_expression-45"><span class="linenos">45</span></a><span class="sd">        if the input is invalid or a division by zero occurs.</span>
+</span><span id="calculate_expression-46"><a href="#calculate_expression-46"><span class="linenos">46</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="calculate_expression-47"><a href="#calculate_expression-47"><span class="linenos">47</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="calculate_expression-48"><a href="#calculate_expression-48"><span class="linenos">48</span></a>        <span class="c1"># Regular expression to validate input</span>
+</span><span id="calculate_expression-49"><a href="#calculate_expression-49"><span class="linenos">49</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^[0-9+\-*/. ]+$&quot;</span><span class="p">,</span> <span class="n">expression</span><span class="p">):</span>
+</span><span id="calculate_expression-50"><a href="#calculate_expression-50"><span class="linenos">50</span></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid characters in input.&quot;</span><span class="p">)</span>
+</span><span id="calculate_expression-51"><a href="#calculate_expression-51"><span class="linenos">51</span></a>            <span class="k">return</span>
+</span><span id="calculate_expression-52"><a href="#calculate_expression-52"><span class="linenos">52</span></a>
+</span><span id="calculate_expression-53"><a href="#calculate_expression-53"><span class="linenos">53</span></a>        <span class="c1"># Just for the sake of testing it</span>
+</span><span id="calculate_expression-54"><a href="#calculate_expression-54"><span class="linenos">54</span></a>        <span class="c1"># pylint: disable=eval-used</span>
+</span><span id="calculate_expression-55"><a href="#calculate_expression-55"><span class="linenos">55</span></a>        <span class="n">result</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+</span><span id="calculate_expression-56"><a href="#calculate_expression-56"><span class="linenos">56</span></a>        <span class="c1"># pylint: enable=eval-used</span>
+</span><span id="calculate_expression-57"><a href="#calculate_expression-57"><span class="linenos">57</span></a>
+</span><span id="calculate_expression-58"><a href="#calculate_expression-58"><span class="linenos">58</span></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="calculate_expression-59"><a href="#calculate_expression-59"><span class="linenos">59</span></a>    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+</span><span id="calculate_expression-60"><a href="#calculate_expression-60"><span class="linenos">60</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Division by zero is not allowed.&quot;</span><span class="p">)</span>
+</span><span id="calculate_expression-61"><a href="#calculate_expression-61"><span class="linenos">61</span></a>    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span id="calculate_expression-62"><a href="#calculate_expression-62"><span class="linenos">62</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Invalid input value.&quot;</span><span class="p">)</span>
+</span><span id="calculate_expression-63"><a href="#calculate_expression-63"><span class="linenos">63</span></a>    <span class="k">except</span> <span class="ne">SyntaxError</span><span class="p">:</span>
+</span><span id="calculate_expression-64"><a href="#calculate_expression-64"><span class="linenos">64</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Invalid syntax in the expression.&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Evaluates a mathematical expression string and prints the result.</p>
+
+<p>The function supports the four basic arithmetic operations: addition,
+subtraction, multiplication, and division. Operator precedence is respected
+(e.g., multiplication is evaluated before addition). Only digits, spaces,
+decimal points, and the operators '+', '-', '*', and '/' are allowed.</p>
+
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>expression (str):</strong>  A string containing a mathematical expression (e.g., "3 + 4 * 2").</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>None: The result is printed directly. Error messages are also printed
+  if the input is invalid or a division by zero occurs.</p>
+</blockquote>
+</div>
+
 
                 </section>
                 <section id="calc">
@@ -203,12 +288,45 @@
 
     </div>
     <a class="headerlink" href="#calc"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="calc-40"><a href="#calc-40"><span class="linenos">40</span></a><span class="k">def</span><span class="w"> </span><span class="nf">calc</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
-</span><span id="calc-41"><a href="#calc-41"><span class="linenos">41</span></a>    <span class="n">calculate_expression</span><span class="p">(</span><span class="n">validate_args</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="calc-67"><a href="#calc-67"><span class="linenos">67</span></a><span class="k">def</span><span class="w"> </span><span class="nf">calc</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+</span><span id="calc-68"><a href="#calc-68"><span class="linenos">68</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="calc-69"><a href="#calc-69"><span class="linenos">69</span></a><span class="sd">    Validates command-line arguments and calculates the result of the provided expression.</span>
+</span><span id="calc-70"><a href="#calc-70"><span class="linenos">70</span></a>
+</span><span id="calc-71"><a href="#calc-71"><span class="linenos">71</span></a><span class="sd">    This function takes the command-line arguments (usually passed through `sys.argv`),</span>
+</span><span id="calc-72"><a href="#calc-72"><span class="linenos">72</span></a><span class="sd">    validates the expression, and then calls `calculate_expression` to evaluate the expression.</span>
+</span><span id="calc-73"><a href="#calc-73"><span class="linenos">73</span></a>
+</span><span id="calc-74"><a href="#calc-74"><span class="linenos">74</span></a><span class="sd">    Args:</span>
+</span><span id="calc-75"><a href="#calc-75"><span class="linenos">75</span></a><span class="sd">        args (list): A list of command-line arguments, typically provided by `sys.argv[1:]`.</span>
+</span><span id="calc-76"><a href="#calc-76"><span class="linenos">76</span></a><span class="sd">                      The list should contain a mathematical expression as a string to be evaluated.</span>
+</span><span id="calc-77"><a href="#calc-77"><span class="linenos">77</span></a>
+</span><span id="calc-78"><a href="#calc-78"><span class="linenos">78</span></a><span class="sd">    Returns:</span>
+</span><span id="calc-79"><a href="#calc-79"><span class="linenos">79</span></a><span class="sd">        None: The result of the expression is printed directly. If there is an error</span>
+</span><span id="calc-80"><a href="#calc-80"><span class="linenos">80</span></a><span class="sd">              (e.g., invalid input or syntax), an error message is printed instead.</span>
+</span><span id="calc-81"><a href="#calc-81"><span class="linenos">81</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="calc-82"><a href="#calc-82"><span class="linenos">82</span></a>    <span class="n">calculate_expression</span><span class="p">(</span><span class="n">validate_args</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Validates command-line arguments and calculates the result of the provided expression.</p>
+
+<p>This function takes the command-line arguments (usually passed through <code>sys.argv</code>),
+validates the expression, and then calls <code><a href="#calculate_expression">calculate_expression</a></code> to evaluate the expression.</p>
+
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>args (list):</strong>  A list of command-line arguments, typically provided by <code>sys.argv[1:]</code>.
+The list should contain a mathematical expression as a string to be evaluated.</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>None: The result of the expression is printed directly. If there is an error
+        (e.g., invalid input or syntax), an error message is printed instead.</p>
+</blockquote>
+</div>
+
 
                 </section>
     </main>
