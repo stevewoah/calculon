@@ -1,0 +1,35 @@
+name: Deploy Documentation to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Trigger this workflow when changes are pushed to the 'main' branch
+
+jobs:
+  deploy-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9  # You can set the Python version you are using
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Install your dependencies
+          pip install pdoc  # Install pdoc for generating the docs
+
+      - name: Build the documentation
+        run: |
+          pdoc --output-dir docs --force --html calculon  # Change 'calculon' to your module or package
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs  # The directory where the generated documentation is saved
