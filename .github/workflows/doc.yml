@@ -26,7 +26,7 @@ jobs:
 
       - name: Build the documentation
         run: |
-          pdoc --output-dir docs --html calculon
+          pdoc -o docs -d google
           
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
