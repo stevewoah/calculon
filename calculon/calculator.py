@@ -75,7 +75,7 @@ def calc(args):
                       The list should contain a mathematical expression as a string to be evaluated.
 
     Returns:
-        None: The result of the expression is printed directly. If there is an error (e.g., invalid input or
-              syntax), an error message is printed instead.
+        None: The result of the expression is printed directly. If there is an error 
+              (e.g., invalid input or syntax), an error message is printed instead.
     """
     calculate_expression(validate_args(args))
