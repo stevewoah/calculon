@@ -18,11 +18,11 @@ def validate_args(args: list[str]) -> str:
     Raises:
         SystemExit: If no arguments are provided.
     """
-    if len(args) < 2:
+    if len(args) == 0:
         print('Usage: calculon "3 + 4 * 2"')
         sys.exit(1)
 
-    expression = " ".join(sys.argv[1:])
+    expression = " ".join(args)
 
     return expression
 
